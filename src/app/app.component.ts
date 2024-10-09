@@ -45,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { TopNavComponent } from "./layout/top-nav/top-nav.component";
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -87,7 +88,8 @@ import { TopNavComponent } from "./layout/top-nav/top-nav.component";
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    TopNavComponent
+    TopNavComponent,
+    HttpClientModule
 ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

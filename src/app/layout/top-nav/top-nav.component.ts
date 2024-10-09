@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 // Add below imports to the Imports Section on the top of the page
 
@@ -50,6 +50,7 @@ import { MatTableModule } from '@angular/material/table';
   standalone: true,
   imports: [
     RouterOutlet,
+    RouterLink,
     MatAutocompleteModule,
     MatCheckboxModule,
     MatDatepickerModule,
