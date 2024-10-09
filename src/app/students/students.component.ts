@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StudentService } from './student.service';
 import { Student } from '../models/ui-models/student.model';
 import { MatTableDataSource } from '@angular/material/table';
@@ -42,10 +42,11 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // Material Data tables
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-students',
@@ -57,6 +58,7 @@ import { DatePipe } from '@angular/common';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatSort,
     MatInputModule,
     MatRadioModule,
     MatSelectModule,
@@ -87,7 +89,8 @@ import { DatePipe } from '@angular/common';
     MatTooltipModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTableModule
+    MatTableModule,
+    FormsModule
   ],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'
@@ -97,6 +100,9 @@ export class StudentsComponent implements OnInit {
   students: Student[] = [];
   displayedColumns: string[] = ['firstName', 'lastName', 'dateOfBirth', 'email', 'mobile', 'gender'];
   dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
+  @ViewChild(MatPaginator) matPaginator!: MatPaginator;
+  @ViewChild(MatSort) matSort!: MatSort;
+  filterString = '';
 
   constructor(private studentService: StudentService) {}
 
@@ -107,10 +113,22 @@ export class StudentsComponent implements OnInit {
       (sucessResponse) => {
         this.students = sucessResponse;
         this.dataSource = new MatTableDataSource<Student>(this.students);
+
+        if (this.matPaginator) {
+          this.dataSource.paginator = this.matPaginator;
+        }
+
+        if (this.matSort) {
+          this.dataSource.sort = this.matSort;
+        }
       },
       (errorResponse) => {
         console.log(errorResponse);
       }
     );
+  }
+
+  filterStudents() {
+    this.dataSource.filter = this.filterString.trim().toLowerCase();
   }
 }
