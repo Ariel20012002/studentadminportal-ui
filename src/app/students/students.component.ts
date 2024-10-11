@@ -47,6 +47,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -90,7 +91,8 @@ import { FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
-    FormsModule
+    FormsModule,
+    RouterLink
   ],
   templateUrl: './students.component.html',
   styleUrl: './students.component.css'
@@ -98,7 +100,8 @@ import { FormsModule } from '@angular/forms';
 export class StudentsComponent implements OnInit {
 
   students: Student[] = [];
-  displayedColumns: string[] = ['firstName', 'lastName', 'dateOfBirth', 'email', 'mobile', 'gender'];
+  displayedColumns: string[] = ['firstName', 'lastName', 'dateOfBirth', 'email', 'mobile',
+  'gender', 'edit'];
   dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
   @ViewChild(MatSort) matSort!: MatSort;
@@ -108,7 +111,7 @@ export class StudentsComponent implements OnInit {
 
   ngOnInit(): void {
     // Fetch Students
-    this.studentService.getStudent()
+    this.studentService.getStudents()
     .subscribe(
       (sucessResponse) => {
         this.students = sucessResponse;
