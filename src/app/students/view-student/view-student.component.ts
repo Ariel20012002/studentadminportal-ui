@@ -48,6 +48,7 @@ import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StudentService } from '../student.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Student } from '../../models/ui-models/student.model';
 
 @Component({
   selector: 'app-view-student',
@@ -100,6 +101,25 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 })
 export class ViewStudentComponent implements OnInit {
   studentId: string | null | undefined;
+  student: Student = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+    mobile: 0,
+    genderId: '',
+    profileImageUrl: '',
+    gender: {
+      id: '',
+      description: ''
+    },
+    address: {
+      id: '',
+      physicalAddress: '',
+      postalAddress: ''
+    }
+  }
 
   constructor(private readonly studentService: StudentService,
     private readonly route: ActivatedRoute) { }
@@ -115,7 +135,7 @@ export class ViewStudentComponent implements OnInit {
       this.studentService.getStudent(this.studentId)
       .subscribe(
         (sucessResponse) => {
-          console.log(sucessResponse);
+          this.student = sucessResponse;
         }
       );
     }
