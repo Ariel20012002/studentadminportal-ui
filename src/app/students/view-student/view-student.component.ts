@@ -6,7 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOption } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
@@ -44,11 +44,14 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { DatePipe } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StudentService } from '../student.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Student } from '../../models/ui-models/student.model';
+import { GenderService } from '../../services/gender.service';
+import { Gender } from '../../models/ui-models/gender.model';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-student',
@@ -94,7 +97,9 @@ import { Student } from '../../models/ui-models/student.model';
     MatTableModule,
     FormsModule,
     RouterLink,
-    MatButtonModule
+    MatButtonModule,
+    MatOption,
+    CommonModule
   ],
   templateUrl: './view-student.component.html',
   styleUrl: './view-student.component.css'
@@ -121,24 +126,34 @@ export class ViewStudentComponent implements OnInit {
     }
   }
 
+  genderList: Gender[] = [];
+
   constructor(private readonly studentService: StudentService,
-    private readonly route: ActivatedRoute) { }
+    private readonly route: ActivatedRoute,
+    private readonly genderService: GenderService) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
       (params) => {
          this.studentId = params.get('id');
-      }
-    )
 
-    if (this.studentId) {
-      this.studentService.getStudent(this.studentId)
-      .subscribe(
-        (sucessResponse) => {
-          this.student = sucessResponse;
+        if (this.studentId) {
+          this.studentService.getStudent(this.studentId)
+          .subscribe(
+            (sucessResponse) => {
+              this.student = sucessResponse;
+            }
+          );
+
+          this.genderService.getGenderList()
+            .subscribe(
+              (sucessResponse) => {
+                this.genderList = sucessResponse;
+              }
+            );
         }
-      );
-    }
+      }
+    );
   }
 
 }
