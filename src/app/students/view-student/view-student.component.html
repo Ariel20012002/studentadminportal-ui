@@ -20,14 +20,14 @@
     <div class="col-xs-6">
       <!-- Detalles del Estudiante -->
       <form #studentDetailsForm="ngForm">
-        <div class="row justify-content-start">
-          <div class="col-xs-5">
+        <div class="row">
+          <div class="col-8">
             <mat-form-field appearance="outline">
               <mat-label>Primer Nombre</mat-label>
               <input type="text" matInput [(ngModel)]="student.firstName" name="firstName">
             </mat-form-field>
           </div>
-          <div class="col-xs-6">
+          <div class="col-4">
             <mat-form-field appearance="outline">
               <mat-label>Primer Apellido</mat-label>
               <input type="text" matInput [(ngModel)]="student.lastName" name="lastName">
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-xs-12">
+          <div class="col-8">
             <mat-form-field appearance="outline">
               <mat-label>Fecha de Nacimiento</mat-label>
               <input matInput [matDatepicker]="picker" [(ngModel)]="student.dateOfBirth" name="dateOfBirth">
@@ -84,6 +84,11 @@
               <mat-label>Direccion Postal</mat-label>
               <textarea matInput [(ngModel)]="student.address.postalAddress" name="postalAddress"></textarea>
             </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <button mat-raised-button color="primary" (click)="onUpdate()">Guardar</button>
           </div>
         </div>
       </form>

@@ -38,7 +38,7 @@ import { MatRippleModule } from '@angular/material/core';
 // Material Popups & Modals
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 // Material Data tables
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
@@ -130,7 +130,8 @@ export class ViewStudentComponent implements OnInit {
 
   constructor(private readonly studentService: StudentService,
     private readonly route: ActivatedRoute,
-    private readonly genderService: GenderService) { }
+    private readonly genderService: GenderService,
+    private snackbar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -156,4 +157,19 @@ export class ViewStudentComponent implements OnInit {
     );
   }
 
+  onUpdate(): void {
+    // Llamar servicio de estudiante para actualizar estudiante
+    this.studentService.updateStudent(this.student.id, this.student)
+      .subscribe(
+        (sucessResponse) => {
+          // Mostrar notificacion
+          this.snackbar.open('Estudiante actualizado correctamente', undefined, {
+            duration: 2000
+          });
+        },
+        (errorResponse) => {
+          // Log it
+        }
+    );
+  }
 }
