@@ -47,11 +47,10 @@ import { MatTableModule } from '@angular/material/table';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { StudentService } from '../student.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Student } from '../../models/ui-models/student.model';
 import { GenderService } from '../../services/gender.service';
 import { Gender } from '../../models/ui-models/gender.model';
-import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-view-student',
@@ -131,7 +130,8 @@ export class ViewStudentComponent implements OnInit {
   constructor(private readonly studentService: StudentService,
     private readonly route: ActivatedRoute,
     private readonly genderService: GenderService,
-    private snackbar: MatSnackBar) { }
+    private snackbar: MatSnackBar,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(
@@ -171,5 +171,24 @@ export class ViewStudentComponent implements OnInit {
           // Log it
         }
     );
+  }
+
+  onDelete(): void {
+    // estudiante servicio a borrar
+    this.studentService.deleteStudent(this.student.id)
+      .subscribe(
+        (successResponse) => {
+          this.snackbar.open('Estudiante borrado correctamente', undefined, {
+            duration: 2000
+          });
+
+          setTimeout(() => {
+            this.router.navigateByUrl('students');
+          }, 2000);
+        },
+        (errorResponse) => {
+          // Log
+        }
+      );
   }
 }

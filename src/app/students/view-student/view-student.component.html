@@ -87,8 +87,15 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
-            <button mat-raised-button color="primary" (click)="onUpdate()">Guardar</button>
+          <div class="col-4">
+            <div class="row between-xs">
+              <button mat-raised-button color="primary" (click)="onUpdate()">Guardar</button>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="row between-xs">
+              <button mat-raised-button color="warn" (click)="onDelete()">Borrar</button>
+            </div>
           </div>
         </div>
       </form>
