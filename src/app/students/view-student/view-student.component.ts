@@ -123,7 +123,10 @@ export class ViewStudentComponent implements OnInit {
       physicalAddress: '',
       postalAddress: ''
     }
-  }
+  };
+
+  isNewStudent = false;
+  header = '';
 
   genderList: Gender[] = [];
 
@@ -139,6 +142,16 @@ export class ViewStudentComponent implements OnInit {
          this.studentId = params.get('id');
 
         if (this.studentId) {
+          if(this.studentId.toLowerCase() === 'Add'.toLowerCase()) {
+            // -> nuevo Student funcionalidad
+            this.isNewStudent = true;
+            this.header = 'Add New Student';
+          } else {
+            // -> Existe Student funcionalidad
+            this.isNewStudent = false;
+            this.header = 'Edit Student';
+          }
+
           this.studentService.getStudent(this.studentId)
           .subscribe(
             (sucessResponse) => {
@@ -147,11 +160,11 @@ export class ViewStudentComponent implements OnInit {
           );
 
           this.genderService.getGenderList()
-            .subscribe(
-              (sucessResponse) => {
-                this.genderList = sucessResponse;
-              }
-            );
+          .subscribe(
+            (sucessResponse) => {
+              this.genderList = sucessResponse;
+            }
+          );
         }
       }
     );
@@ -190,5 +203,9 @@ export class ViewStudentComponent implements OnInit {
           // Log
         }
       );
+  }
+
+  onAdd(): void {
+
   }
 }
