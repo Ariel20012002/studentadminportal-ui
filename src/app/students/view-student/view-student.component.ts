@@ -127,6 +127,7 @@ export class ViewStudentComponent implements OnInit {
 
   isNewStudent = false;
   header = '';
+  displayProfileImageUrl = '';
 
   genderList: Gender[] = [];
 
