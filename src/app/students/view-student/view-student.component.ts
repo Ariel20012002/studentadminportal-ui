@@ -147,6 +147,7 @@ export class ViewStudentComponent implements OnInit {
             // -> nuevo Student funcionalidad
             this.isNewStudent = true;
             this.header = 'Add New Student';
+            this.setImage();
           } else {
             // -> Existe Student funcionalidad
             this.isNewStudent = false;
@@ -221,5 +222,14 @@ export class ViewStudentComponent implements OnInit {
         // Log
       }
     );
+  }
+
+  private setImage(): void {
+    if(this.student.profileImageUrl) {
+      // Fetch the Image by url
+    } else {
+      // Display a default
+      this.displayProfileImageUrl = '/src/assets/user.png'
+    }
   }
 }
