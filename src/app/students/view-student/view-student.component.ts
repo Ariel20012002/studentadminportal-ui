@@ -156,6 +156,10 @@ export class ViewStudentComponent implements OnInit {
             .subscribe(
               (sucessResponse) => {
                 this.student = sucessResponse;
+                this.setImage();
+              },
+              (errorResponse) => {
+                this.setImage();
               }
             );
           }
@@ -224,12 +228,32 @@ export class ViewStudentComponent implements OnInit {
     );
   }
 
+  uploadImage(event: any): void {
+    if(this.studentId) {
+      const file: File = event.target.files[0];
+      this.studentService.uploadImage(this.student.id, file)
+      .subscribe(
+        (successResponse) => {
+          this.student.profileImageUrl = successResponse;
+          this.setImage();
+
+          this.snackbar.open('Imagen de Perfil Actualizado', undefined, {
+            duration: 2000
+          });
+        },
+        (errorResponse) => {
+
+        }
+      );
+    }
+  }
+
   private setImage(): void {
     if(this.student.profileImageUrl) {
-      // Fetch the Image by url
+      this.displayProfileImageUrl = this.studentService.getImagePath(this.student.profileImageUrl);
     } else {
       // Display a default
-      this.displayProfileImageUrl = '/src/assets/user.png'
+      this.displayProfileImageUrl = '/assets/user.png'
     }
   }
 }
