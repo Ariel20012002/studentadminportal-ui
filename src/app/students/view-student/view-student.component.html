@@ -113,8 +113,8 @@
           <img [src]="displayProfileImageUrl" alt="Imagen de Perfil">
         </div>
       </div>
-      <div class="row">
-        <div class="col-xs-12 row center-xs mt-1" *ngIf="!isNewStudent">
+      <div class="col-xs-10">
+        <div class="center-md mtm-1" *ngIf="!isNewStudent">
           <input hidden type="file" #imageUpload (change)="uploadImage($event)">
           <button mat-raised-button color="primary" (click)="imageUpload.click()">Cambiar Imagen</button>
         </div>
