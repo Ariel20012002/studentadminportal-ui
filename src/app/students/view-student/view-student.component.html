@@ -24,13 +24,15 @@
           <div class="col-8">
             <mat-form-field appearance="outline">
               <mat-label>Primer Nombre</mat-label>
-              <input type="text" matInput [(ngModel)]="student.firstName" name="firstName">
+              <input type="text" matInput [(ngModel)]="student.firstName" name="firstName" required>
+              <mat-error>Primer nombre es un campo requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col-4">
             <mat-form-field appearance="outline">
               <mat-label>Primer Apellido</mat-label>
-              <input type="text" matInput [(ngModel)]="student.lastName" name="lastName">
+              <input type="text" matInput [(ngModel)]="student.lastName" name="lastName" required>
+              <mat-error>Primer apellido es un campo requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -38,9 +40,10 @@
           <div class="col-8">
             <mat-form-field appearance="outline">
               <mat-label>Fecha de Nacimiento</mat-label>
-              <input matInput [matDatepicker]="picker" [(ngModel)]="student.dateOfBirth" name="dateOfBirth">
+              <input matInput [matDatepicker]="picker" [(ngModel)]="student.dateOfBirth" name="dateOfBirth" required>
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
+              <mat-error>Fecha de Nacimiento es un campo requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -48,13 +51,15 @@
           <div class="col-8">
             <mat-form-field appearance="outline" class="col-11">
               <mat-label>Email</mat-label>
-              <input type="text" matInput [(ngModel)]="student.email" name="email">
+              <input type="text" matInput [(ngModel)]="student.email" name="email" required>
+              <mat-error>Email es un campo requerido</mat-error>
             </mat-form-field>
           </div>
           <div class="col-4">
             <mat-form-field appearance="outline">
               <mat-label>N° Celular</mat-label>
-              <input type="number" matInput [(ngModel)]="student.mobile" name="mobile">
+              <input type="number" matInput [(ngModel)]="student.mobile" name="mobile" required>
+              <mat-error>N°Celular es un campo requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -62,11 +67,12 @@
           <div class="col-8">
             <mat-form-field appearance="outline">
               <mat-label>Genero</mat-label>
-              <mat-select [(ngModel)]="student.genderId" name="gender">
+              <mat-select [(ngModel)]="student.genderId" name="gender" required>
                 <mat-option *ngFor="let gender of genderList" [value]="gender.id">
                   {{ gender.description }}
                 </mat-option>
               </mat-select>
+              <mat-error>Genero es un campo requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -74,7 +80,8 @@
           <div class="col-8">
             <mat-form-field appearance="outline">
               <mat-label>Direccion Fisica</mat-label>
-              <textarea matInput [(ngModel)]="student.address.physicalAddress" name="physicalAddress"></textarea>
+              <textarea matInput [(ngModel)]="student.address.physicalAddress" name="physicalAddress" required></textarea>
+              <mat-error>Direccion Fisica es un campo requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -82,7 +89,8 @@
           <div class="col-8">
             <mat-form-field appearance="outline">
               <mat-label>Direccion Postal</mat-label>
-              <textarea matInput [(ngModel)]="student.address.postalAddress" name="postalAddress"></textarea>
+              <textarea matInput [(ngModel)]="student.address.postalAddress" name="postalAddress" required></textarea>
+              <mat-error>Direccion Postal es un campo requerido</mat-error>
             </mat-form-field>
           </div>
         </div>

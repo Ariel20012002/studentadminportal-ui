@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, viewChild } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 // Add below imports to the Imports Section on the top of the page
@@ -45,7 +45,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule, DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { StudentService } from '../student.service';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Student } from '../../models/ui-models/student.model';
@@ -131,6 +131,8 @@ export class ViewStudentComponent implements OnInit {
 
   genderList: Gender[] = [];
 
+  @ViewChild('studentDetailsForm') studentDetailsForm?: NgForm;
+
   constructor(private readonly studentService: StudentService,
     private readonly route: ActivatedRoute,
     private readonly genderService: GenderService,
@@ -176,19 +178,23 @@ export class ViewStudentComponent implements OnInit {
   }
 
   onUpdate(): void {
-    // Llamar servicio de estudiante para actualizar estudiante
+    if(this.studentDetailsForm?.form.valid) {
+          // Llamar servicio de estudiante para actualizar estudiante
     this.studentService.updateStudent(this.student.id, this.student)
-      .subscribe(
-        (sucessResponse) => {
-          // Mostrar notificacion
-          this.snackbar.open('Estudiante actualizado correctamente', undefined, {
-            duration: 2000
-          });
-        },
-        (errorResponse) => {
-          // Log it
-        }
-    );
+    .subscribe(
+      (sucessResponse) => {
+        // Mostrar notificacion
+        this.snackbar.open('Estudiante actualizado correctamente', undefined, {
+          duration: 2000
+        });
+      },
+      (errorResponse) => {
+        // Log it
+        console.log(errorResponse);
+      }
+  );
+    }
+
   }
 
   onDelete(): void {
@@ -211,21 +217,24 @@ export class ViewStudentComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.studentService.addStudent(this.student)
-    .subscribe(
-      (successResponse) => {
-        this.snackbar.open('Estudiante añadido correctamente', undefined, {
-          duration: 2000
-        });
+    if(this.studentDetailsForm?.form.valid) {
+      this.studentService.addStudent(this.student)
+      .subscribe(
+        (successResponse) => {
+          this.snackbar.open('Estudiante añadido correctamente', undefined, {
+            duration: 2000
+          });
 
-        setTimeout(() => {
-          this.router.navigateByUrl(`students/${successResponse.id}`);
-        }, 2000);
-      },
-      (errorResponse) => {
-        // Log
-      }
-    );
+          setTimeout(() => {
+            this.router.navigateByUrl(`students/${successResponse.id}`);
+          }, 2000);
+        },
+        (errorResponse) => {
+          // Log
+          console.log(errorResponse);
+        }
+      );
+    }
   }
 
   uploadImage(event: any): void {
