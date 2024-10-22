@@ -16,3 +16,21 @@ table {
 .search-input:focus {
   border: 1px solid #AAA;
 }
+
+.ml-1 {
+  margin-left: 1em !important;
+  bottom: 5px;
+}
+
+.mlm-1 {
+  margin-left: 1em !important;
+}
+
+.mt-1 {
+  margin-top: 1em !important;
+}
+
+.mtm-1 {
+  margin-top: 1em !important;
+  margin-left: 7em;
+}
