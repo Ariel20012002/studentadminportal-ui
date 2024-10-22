@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  baseApiUrl: 'https://localhost:7211'
+  production: true,
+  baseApiUrl: 'https://studentadminportalapiecuador.azurewebsites.net'
 };
